@@ -4,6 +4,15 @@
 \usepackage{bm}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 
+% let figures and tables share pages with text instead of collecting on float-only pages
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.85}
+
 \begin{document}
 	
 	\title{Statistical Arbitrage in Cryptocurrencies: Momentum, Reversal and Risk-Parity Combination}
@@ -44,7 +53,7 @@
 	\end{equation}
 	where $\bar r^{(h)}_{i,t}$ is the average 4-hour return of coin $i$ over the last $h$ hours, $\overline{\operatorname{rank}}_t$ is the mean rank across coins, and the weights are scaled to $\sum_i |w_{i,t}| = 1$. Without a skip ($\ell = 1$ in Eq.~(\ref{eq:backtest}): the position is held from the bar right after the signal), short horizons are strongly negative ($h = 4$: Sharpe $-4.2$): over a few hours coins reverse. Skipping one bar ($\ell = 2$: the bar right after the signal is skipped and the position is held from the next one) removes this effect and every horizon becomes positive [Fig.~\ref{fig:horizon}], so all momentum signals use a one-bar skip, analogous to 12-1 stock momentum.
 	
-	\begin{figure}[h]
+	\begin{figure}[!htbp]
 		\centering
 		\includegraphics[width=0.75\linewidth]{figures/f1_horizon.png}
 		\caption{Gross Sharpe ratio of XS momentum by look-back horizon, with and without skipping the most recent bar.}
@@ -53,7 +62,7 @@
 	
 	\textit{Costs.} Rebalanced every 4 hours, every horizon loses money after costs (Table~\ref{tab:costs}). The signal works; the problem is turnover.
 	
-	\begin{table}[h]
+	\begin{table}[!htbp]
 		\caption{XS momentum rebalanced every 4 hours.}
 		\label{tab:costs}
 		\begin{ruledtabular}
@@ -75,7 +84,7 @@
 	\end{equation}
 	where $\bm w^{*}$ is the momentum (ideal) portfolio, $\bm\Sigma$ is a Ledoit--Wolf covariance estimated on the past 30 days, and $\bm w'$ is the position actually held. The optimizer only trades coins far enough from the ideal portfolio to justify the cost (Table~\ref{tab:opt}); $\lambda = 0$ reproduces the daily rule.
 	
-	\begin{table}[h]
+	\begin{table}[!htbp]
 		\caption{XS momentum ($h = 720$), daily rebalance with the optimization of Eq.~(\ref{eq:opt}).}
 		\label{tab:opt}
 		\begin{ruledtabular}
@@ -97,7 +106,7 @@
 	\end{equation}
 	where $\hat\sigma_{i,t}$ is the standard deviation of the 4-hour returns of coin $i$ over the past 30 days, $\overline{\operatorname{rank}}_t$ is the cross-sectional mean of the averaged rank, and the weights are scaled to $\sum_i |w^{*}_{i,t}| = 1$. With the optimization of Eq.~(\ref{eq:opt}) ($\lambda = 0.003$), this raises the gross Sharpe from 1.21 to 1.59 and the net Sharpe from 0.88 to 1.03 [Fig.~\ref{fig:costs}]. This is the final XS strategy.
 	
-	\begin{figure}[h]
+	\begin{figure}[!htbp]
 		\centering
 		\includegraphics[width=0.75\linewidth]{figures/f2_costs.png}
 		\caption{Net Sharpe ratio (20~bps) of XS momentum under successive execution improvements.}
@@ -124,7 +133,7 @@
 	\end{equation}
 	All four are scaled to $\sum_i |w_{i,t}| = 1$ and use the same sample (the coins and dates where $\mathrm{avol}_{i,t}$ exists). Consistent with the hypothesis that activity strengthens momentum, momentum among the high-avol half of the coins beats the low-avol half (Table~\ref{tab:volume}; also for $h = 168$: 1.10 vs 0.51). With only 13 coins, however, splitting the universe costs more diversification than the volume information adds, and volume weighting is slightly below plain momentum. Volume is not used in the final strategy.
 	
-	\begin{table}[h]
+	\begin{table}[!htbp]
 		\caption{Volume-conditioned XS momentum, $h = 720$.}
 		\label{tab:volume}
 		\begin{ruledtabular}
@@ -151,7 +160,7 @@
 	\end{equation}
 	where $6L$ is the number of 4-hour bars in $L$ days. The position $s_t \in [-1, 1]$ is smaller when the look-backs disagree. Unlike XS momentum this strategy is directional, not dollar neutral. It is rebalanced daily with a one-bar skip (Table~\ref{tab:ts}).
 	
-	\begin{table}[h]
+	\begin{table}[!htbp]
 		\caption{Market TS momentum, daily rebalance.}
 		\label{tab:ts}
 		\begin{ruledtabular}
@@ -173,7 +182,7 @@
 	
 	Reversal profits are very sensitive to price quality, so each idea is also run on Binance global data for the same coins over 2020--2024. Binance global trades roughly $1000\times$ the volume of Binance.US, and 4-hour returns on the two venues are 96--99\% correlated.
 	
-	\begin{table}[h]
+	\begin{table}[!htbp]
 		\caption{Reversal strategies on Binance.US and Binance global (2020--2024).}
 		\label{tab:reversal}
 		\begin{ruledtabular}
@@ -239,7 +248,7 @@
 	\end{equation}
 	where $r^{\mathrm{net}}_{k,t}$ is the net return of strategy $k$ and $\hat\sigma_{k,t}$ is its standard deviation over the past year, including bar $t$. The shares used in bar $t$ are therefore $a_{k,t-1}$, set before bar $t$ starts, so there is no look-ahead. One year rather than 90 days is used because FS is flat most of the time. Risk parity is compared with equal weights and with max-Sharpe weights $\bm a \propto \bm\Sigma^{-1}\bm\mu$ estimated either on past data only (rolling) or on the evaluation period itself (look-ahead, upper bound). The evaluation period is March 2021 -- December 2025.
 	
-	\begin{table}[h]
+	\begin{table}[!htbp]
 		\caption{Correlation of net returns (left) and combination methods (right).}
 		\label{tab:combo}
 		\begin{minipage}{0.36\linewidth}
@@ -271,30 +280,41 @@
 	
 	The strategies are nearly uncorrelated; TS momentum and fire sale are negatively correlated because TS is often short right after a crash while the fire-sale strategy is long. Risk parity is the best realistic method and is close to the look-ahead optimum, while rolling max-Sharpe weights suffer from noisy mean estimates. Adding BAB raises the Sharpe from 1.35 to 1.43 and lowers volatility from 20\% to 14\%, although BAB alone is weak over this period.
 	
-	\begin{figure}[h]
+	\begin{figure}[!htbp]
 		\centering
 		\includegraphics[width=0.85\linewidth]{figures/f3_insample.png}
 		\caption{Cumulative net return (summed, 20~bps) of the four strategies and the risk-parity combination on Binance.US, and drawdown of the combination.}
 		\label{fig:insample}
 	\end{figure}
 	
-	\begin{table}[h]
+	\begin{table}[!htbp]
 		\caption{Final strategy (4 strategies, risk parity), Binance.US, March 2021 -- December 2025.}
 		\label{tab:final}
 		\begin{ruledtabular}
+			\begin{tabular}{lc}
+				Net Sharpe (20 bps)  & 1.43 \\
+				Annual return        & 20.4\% \\
+				Annual volatility    & 14.3\% \\
+				Max drawdown         & $-13.1\%$ \\
+			\end{tabular}
+		\end{ruledtabular}
+	\end{table}
+
+	\begin{table}[!htbp]
+		\caption{Regression of the 4-hour net returns of the final strategy on the equal-weight market and on BTC, Binance.US, March 2021 -- December 2025.}
+		\label{tab:alpha}
+		\begin{ruledtabular}
 			\begin{tabular}{lcc}
-				& vs.\ equal-weight market & vs.\ BTC \\
+				Factor              & Equal-weight market & BTC \\
 				\hline
-				Net Sharpe (20 bps)         & \multicolumn{2}{c}{1.43} \\
-				Annual return / volatility  & \multicolumn{2}{c}{20\% / 14\%} \\
-				Max drawdown                & \multicolumn{2}{c}{$-13\%$} \\
-				Beta                        & 0.06 & 0.07 \\
-				Annual alpha ($t$-stat)     & 18\% (2.9) & 18\% (2.9) \\
+				Beta                & 0.061  & 0.075 \\
+				Annual alpha        & 17.7\% & 18.3\% \\
+				$t$-stat (alpha)    & 2.89   & 2.95 \\
 			\end{tabular}
 		\end{ruledtabular}
 	\end{table}
 	
-	\begin{table}[h]
+	\begin{table}[!htbp]
 		\caption{Net Sharpe ratio by year, Binance.US.}
 		\label{tab:yearly}
 		\begin{ruledtabular}
@@ -316,14 +336,14 @@
 	
 	Binance.US volume collapsed in 2026 (e.g.\ VET $\approx \$33$ and ATOM $\approx \$17$ per hour), so all four strategies were rebuilt from Binance global prices for the same 13 coins with exactly the same rules and parameters (data from the public mirror \texttt{data-api.binance.vision}). The year 2025 was partly visible during development; 2026 was never seen.
 	
-	\begin{figure}[h]
+	\begin{figure}[!htbp]
 		\centering
 		\includegraphics[width=0.85\linewidth]{figures/f4_oos.png}
 		\caption{Cumulative net return (20~bps) on Binance global data. The dashed line marks the start of the out-of-sample period.}
 		\label{fig:oos}
 	\end{figure}
 	
-	\begin{table}[h]
+	\begin{table}[!htbp]
 		\caption{Net Sharpe ratio on Binance global data.}
 		\label{tab:oos}
 		\begin{ruledtabular}
