@@ -1,0 +1,10 @@
+# whitelist: only the final notebook and the report are tracked
+*
+!.gitignore
+!README.md
+!project_final.ipynb
+!report/
+!report/main.tex
+!report/main.pdf
+!report/figures/
+!report/figures/*.png
