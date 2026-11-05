@@ -8,6 +8,6 @@ Wall Street Quants course project: cross-sectional momentum, time-series momentu
 - [`statarb.py`](statarb.py) — function definitions (signals, cvxpy optimizer, backtest, risk parity, statistics)
 - [`global30_data.ipynb`](global30_data.ipynb) — data download from Binance global (`data.binance.vision`) and coin selection for the 30-coin universe (monthly top 30 by 90-day dollar volume, stablecoins excluded)
 - [`data_13coins.ipynb`](data_13coins.ipynb) — data download from Binance.US and selection of the 13 coins
-- [`project_final.ipynb`](project_final.ipynb), [`report/main.pdf`](report/main.pdf) — earlier version (13 Binance.US coins)
+- [`old version/`](old%20version) — earlier version (13 Binance.US coins): `project_final.ipynb` and `report/main.pdf`
 
 The price data (`data/*.pk`, ~1 GB) are not included; the two data notebooks download them.

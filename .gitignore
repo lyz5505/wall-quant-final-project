@@ -1,17 +1,21 @@
-# whitelist: only the final notebook and the report are tracked
+# whitelist: only the listed code, notebooks and reports are tracked
 *
 !.gitignore
 !README.md
-!project_final.ipynb
 !statarb.py
 !global30_data.ipynb
 !data_13coins.ipynb
 !30coins_project_module.ipynb
 !13coins_project_V2_module.ipynb
 !report/
-!report/main.tex
-!report/main.pdf
 !report/main_v3.tex
 !report/main_v3.pdf
 !report/figures/
 !report/figures/*.png
+!old version/
+!old version/project_final.ipynb
+!old version/report/
+!old version/report/main.tex
+!old version/report/main.pdf
+!old version/report/figures/
+!old version/report/figures/*.png
