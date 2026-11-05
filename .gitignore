@@ -3,6 +3,9 @@
 !.gitignore
 !README.md
 !project_final.ipynb
+!statarb.py
+!global30_data.ipynb
+!data_13coins.ipynb
 !report/
 !report/main.tex
 !report/main.pdf

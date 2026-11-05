@@ -1,8 +1,11 @@
-# Statistical Arbitrage in Cryptocurrencies
+# Crypto Statistical Arbitrage
 
-Wall Street Quants course project: momentum and reversal strategies on 13 liquid cryptocurrencies (Binance.US 4-hour bars, 2020–2025), net of 20 bps execution costs, with an out-of-sample test on Binance global data (2025–2026).
+Wall Street Quants course project: cross-sectional momentum, time-series momentum, a fire-sale reversal and betting-against-beta on Binance global cryptocurrencies, combined by risk parity, net of 20 bps execution costs. The main universe is point in time (each month, the top 30 coins by trailing 90-day dollar volume, stablecoins excluded); a fixed set of 13 large coins is used for comparison. Training April 2021 – August 2025, test September 2025 – October 2026.
 
-- [`project_final.ipynb`](project_final.ipynb) — full research notebook (data, momentum, reversal, betting against beta, risk-parity combination, out-of-sample test)
-- [`report/main.pdf`](report/main.pdf) — written report ([`report/main.tex`](report/main.tex) is the LaTeX source)
+- [`report/main_v3.pdf`](report/main_v3.pdf) — report ([`report/main_v3.tex`](report/main_v3.tex) is the LaTeX source, figures in [`report/figures/`](report/figures))
+- [`statarb.py`](statarb.py) — function definitions (signals, cvxpy optimizer, backtest, risk parity, statistics)
+- [`global30_data.ipynb`](global30_data.ipynb) — data download from Binance global (`data.binance.vision`) and the point-in-time 30-coin universe
+- [`data_13coins.ipynb`](data_13coins.ipynb) — data download from Binance.US and selection of the 13 coins
+- [`project_final.ipynb`](project_final.ipynb), [`report/main.pdf`](report/main.pdf) — earlier version (13 Binance.US coins)
 
-The price data (`data/*.pk`, ~175 MB) are not included; they are downloaded with `python-binance` from Binance.US and from Binance's public mirror `data-api.binance.vision`.
+The price data (`data/*.pk`, ~1 GB) are not included; the two data notebooks download them.
